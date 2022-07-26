@@ -4,7 +4,7 @@ BASE_IMAGE := localhost/alpine:3
 # - https://github.com/rust-lang/rustup/tags
 # - https://github.com/rust-lang/rust/releases
 RUSTUP_VERSION := 1.25.1
-RUST_VERSION := 1.61.0
+RUST_VERSION := 1.62.1
 
 # Optional variables
 RUSTUP_BIN := rustup-init-$(RUSTUP_VERSION)
