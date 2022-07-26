@@ -3,7 +3,7 @@ BASE_IMAGE := localhost/alpine:3
 # Find new versions at:
 # - https://github.com/rust-lang/rustup/tags
 # - https://github.com/rust-lang/rust/releases
-RUSTUP_VERSION := 1.24.3
+RUSTUP_VERSION := 1.25.1
 RUST_VERSION := 1.61.0
 
 # Optional variables
