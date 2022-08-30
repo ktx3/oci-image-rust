@@ -1,18 +1,21 @@
-BASE_IMAGE := localhost/alpine:3
+# This is free and unencumbered software released into the public domain.
 
-# Find new versions at:
-# - https://github.com/rust-lang/rustup/tags
-# - https://github.com/rust-lang/rust/releases
-RUSTUP_VERSION := 1.25.1
-RUST_VERSION := 1.62.1
+ifndef RUST_VERSION
+RUST_VERSION := $(shell $(SHELL) version.sh rust)
+endif
+
+ifndef RUSTUP_VERSION
+RUSTUP_VERSION := $(shell $(SHELL) version.sh rustup)
+endif
 
 # Optional variables
-RUSTUP_BIN := rustup-init-$(RUSTUP_VERSION)
-RUSTUP_URL := https://static.rust-lang.org/rustup/archive/$(RUSTUP_VERSION)/x86_64-unknown-linux-musl
+BASE_IMAGE ?= localhost/alpine:3
+RUSTUP_BIN ?= rustup-init-$(RUSTUP_VERSION)
+RUSTUP_URL ?= https://static.rust-lang.org/rustup/archive/$(RUSTUP_VERSION)/x86_64-unknown-linux-musl
 
 # Common configuration
-IMAGE_NAME := rust
-IMAGE_VERSION := $(firstword $(subst ., ,$(RUST_VERSION)))
+IMAGE_NAME ?= rust
+IMAGE_VERSION ?= $(firstword $(subst ., ,$(RUST_VERSION)))
 include oci-build/oci-build.mk
 
 # Target recipes
@@ -25,7 +28,7 @@ build: BUILD_OPTS += --build-arg=RUST_VERSION=$(RUST_VERSION)
 build: $(RUSTUP_BIN)
 
 clean:
-	rm -f -- $(wildcard rustup-init-*)
+	rm -f -- $(wildcard rustup-init-* version-*.lock)
 
 rustup-init-%:
 	$(CURL) $(CURL_OPTS) -o $@ --url $(RUSTUP_URL)/rustup-init
