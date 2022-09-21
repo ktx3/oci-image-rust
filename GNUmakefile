@@ -19,7 +19,7 @@ IMAGE_VERSION ?= $(firstword $(subst ., ,$(RUST_VERSION)))
 include oci-build/oci-build.mk
 
 # Target recipes
-.PHONY: clean
+.PHONY: clean update
 
 build: BUILD_OPTS += --build-arg=BASE_IMAGE=$(BASE_IMAGE)
 build: BUILD_OPTS += --build-arg=RUSTUP_BIN=$(RUSTUP_BIN)
@@ -33,3 +33,8 @@ clean:
 rustup-init-%:
 	$(CURL) $(CURL_OPTS) -o $@ --url $(RUSTUP_URL)/rustup-init
 	chmod -- +x $@
+
+update:
+	rm -f -- $(wildcard version-*.lock)
+	$(SHELL) version.sh rust
+	$(SHELL) version.sh rustup
