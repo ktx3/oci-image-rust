@@ -37,10 +37,10 @@ if test -e packages.txt; then
             apt-get -y clean
             ;;
 
-        yum)
-            test -z "${UPGRADE:-}" || yum update -y
-            test -z "${packages:-}" || yum install -y ${packages:-}
-            yum clean all
+        dnf|microdnf|yum)
+            test -z "${UPGRADE:-}" || "${PKG:?}" update -y
+            test -z "${packages:-}" || "${PKG:?}" install -y ${packages:-}
+            "${PKG:?}" clean all
             ;;
 
         *)
