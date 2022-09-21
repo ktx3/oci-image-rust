@@ -8,15 +8,15 @@ set -e -u
 # Change to the script directory
 cd -- "$(dirname -- "${0:?}")"
 
-# Default config
-: "${PKG:=apk}"
-: "${UPGRADE:=}"
-
 pre_install() { :; }
 post_install() { :; }
 
 # Custom config
 ! test -e oci-build-config.sh || . ./oci-build-config.sh
+
+# Default config
+: "${PKG:=apk}"
+: "${UPGRADE:=}"
 
 # Install system packages
 pre_install
