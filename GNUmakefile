@@ -9,9 +9,10 @@ RUSTUP_VERSION := $(shell $(SHELL) version.sh rustup)
 endif
 
 # Optional variables
+ARCH ?= x86_64
 BASE_IMAGE ?= localhost/alpine:3
 RUSTUP_BIN ?= rustup-init-$(RUSTUP_VERSION)
-RUSTUP_URL ?= https://static.rust-lang.org/rustup/archive/$(RUSTUP_VERSION)/x86_64-unknown-linux-musl
+RUSTUP_URL ?= https://static.rust-lang.org/rustup/archive/$(RUSTUP_VERSION)/$(ARCH)-unknown-linux-musl
 
 # Common configuration
 IMAGE_NAME ?= rust
@@ -21,6 +22,7 @@ include oci-build/oci-build.mk
 # Target recipes
 .PHONY: clean update
 
+build: BUILD_OPTS += --build-arg=ARCH=$(ARCH)
 build: BUILD_OPTS += --build-arg=BASE_IMAGE=$(BASE_IMAGE)
 build: BUILD_OPTS += --build-arg=RUSTUP_BIN=$(RUSTUP_BIN)
 build: BUILD_OPTS += --build-arg=RUSTUP_VERSION=$(RUSTUP_VERSION)

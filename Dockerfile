@@ -4,12 +4,14 @@ ARG BASE_IMAGE
 
 FROM ${BASE_IMAGE}
 
+ARG ARCH
 ARG RUSTUP_BIN
 ARG RUSTUP_VERSION
 ARG RUST_VERSION
 
 # Environment variables
 ENV \
+    ARCH=${ARCH} \
     CARGO_HOME=/opt/cargo \
     PATH=${PATH}:/opt/cargo/bin \
     RUSTUP_HOME=/opt/rustup \

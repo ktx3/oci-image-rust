@@ -3,6 +3,7 @@
 # Configuration for oci-build.sh
 
 # Required environment variables from the Dockerfile
+: "${ARCH:?}"
 : "${RUSTUP_VERSION:?}"
 : "${RUST_VERSION:?}"
 
@@ -11,9 +12,9 @@ post_install() {
     "./rustup-init-${RUSTUP_VERSION:?}" -y --no-modify-path \
         --component=clippy \
         --component=rustfmt \
-        --default-host=x86_64-unknown-linux-musl \
+        "--default-host=${ARCH:?}-unknown-linux-musl" \
         "--default-toolchain=${RUST_VERSION:?}" \
         --profile=minimal \
         --target=wasm32-unknown-unknown \
-        --target=x86_64-unknown-linux-musl
+        "--target=${ARCH:?}-unknown-linux-musl"
 }
