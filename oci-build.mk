@@ -11,7 +11,6 @@
 # - BUILD: image build command
 # - BUILD_OPTS: all options passed to the image build command
 # - BUILD_OPTS_EXTRA: extra options passed to the image build command
-# - DISABLE_SQUASH: set to true to disable image layer squashing
 # - IMAGE_REGISTRY: registry prefix used in tagging (default: `localhost/`)
 # - IMAGE_TAG: full image tag
 # - IMAGE_VERSION: image version used in tagging (default: `latest`)
@@ -24,9 +23,6 @@
 # - DOCKER_COMPOSE: docker compose command
 # - GPG: gpg command
 
-# Constants
-override TRUE := true t yes y 1
-
 # Required variables
 assert-set = $(if $(strip $($(1))),,$(error required variable not set: $(1)))
 $(call assert-set,IMAGE_NAME)
@@ -37,9 +33,7 @@ IMAGE_TAG ?= $(IMAGE_REGISTRY)$(IMAGE_NAME):$(IMAGE_VERSION)
 IMAGE_VERSION ?= latest
 
 BUILD ?= docker image build
-BUILD_OPTS ?= --force-rm --tag=$(IMAGE_TAG) \
-    $(if $(filter $(TRUE),$(DISABLE_SQUASH)),,--squash) \
-    $(BUILD_OPTS_EXTRA)
+BUILD_OPTS ?= --force-rm --tag=$(IMAGE_TAG) $(BUILD_OPTS_EXTRA)
 
 # Defined variables
 CURL ?= curl
