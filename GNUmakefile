@@ -1,5 +1,12 @@
 # This is free and unencumbered software released into the public domain.
 
+ifndef ARCH
+    ARCH := $(shell uname -m)
+    ifeq "arm64" "$(ARCH)"
+        ARCH := aarch64
+    endif
+endif
+
 ifndef RUST_VERSION
 RUST_VERSION := $(shell $(SHELL) version.sh rust)
 endif
@@ -9,7 +16,6 @@ RUSTUP_VERSION := $(shell $(SHELL) version.sh rustup)
 endif
 
 # Optional variables
-ARCH ?= x86_64
 BASE_IMAGE ?= localhost/alpine:3
 RUSTUP_BIN ?= rustup-init-$(RUSTUP_VERSION)
 RUSTUP_URL ?= https://static.rust-lang.org/rustup/archive/$(RUSTUP_VERSION)/$(ARCH)-unknown-linux-musl
