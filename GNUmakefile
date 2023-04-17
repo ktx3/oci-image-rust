@@ -30,7 +30,6 @@ include oci-build/oci-build.mk
 
 build: BUILD_OPTS += --build-arg=ARCH=$(ARCH)
 build: BUILD_OPTS += --build-arg=BASE_IMAGE=$(BASE_IMAGE)
-build: BUILD_OPTS += --build-arg=RUSTUP_BIN=$(RUSTUP_BIN)
 build: BUILD_OPTS += --build-arg=RUSTUP_VERSION=$(RUSTUP_VERSION)
 build: BUILD_OPTS += --build-arg=RUST_VERSION=$(RUST_VERSION)
 build: $(RUSTUP_BIN)

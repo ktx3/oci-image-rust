@@ -5,7 +5,6 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 ARG ARCH
-ARG RUSTUP_BIN
 ARG RUSTUP_VERSION
 ARG RUST_VERSION
 
@@ -19,5 +18,8 @@ ENV \
     RUST_VERSION=${RUST_VERSION}
 
 # Install the Rust toolchain with oci-build
-COPY ["oci-build/oci-build.sh", "oci-build-config.sh", "packages.txt", "${RUSTUP_BIN}", "/tmp/"]
-RUN ["sh", "-x", "/tmp/oci-build.sh"]
+RUN \
+    --mount=target=/tmp,type=tmpfs \
+    --mount=target=/tmp/build,readwrite \
+    --mount=target=/tmp/build/oci-build.sh,source=oci-build/oci-build.sh \
+    ["sh", "-x", "/tmp/build/oci-build.sh"]
