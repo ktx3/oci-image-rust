@@ -58,6 +58,3 @@ if test -e oci-entrypoint.sh; then
     chmod +x /usr/local/bin/oci-entrypoint.sh
 fi
 ! test -e oci-entrypoint-config.sh || cp oci-entrypoint-config.sh /etc/
-
-# Clean up temporary build files
-find "$(dirname -- "${0:?}")" -mindepth 1 -maxdepth 1 -exec rm -f -r -- '{}' +

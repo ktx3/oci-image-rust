@@ -12,11 +12,9 @@ commands.
 
 ## Usage
 
-In a Dockerfile, copy the script and any other supporting files to a temporary
-location before running it:
+In a Dockerfile, run the script from a bind mount:
 
-    COPY ["./", "/tmp/"]
-    RUN ["sh", "/tmp/oci-build.sh"]
+    RUN --mount=target=/work ["sh", "/work/oci-build.sh"]
 
 In a makefile, define the image name before including `oci-build.mk`:
 
