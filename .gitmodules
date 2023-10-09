@@ -1,4 +1,0 @@
-[submodule "oci-build"]
-    branch = main
-    path = oci-build
-    url = ../oci-build.git
